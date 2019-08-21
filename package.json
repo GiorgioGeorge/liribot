@@ -1,0 +1,25 @@
+{
+  "name": "liribot",
+  "version": "1.0.0",
+  "description": "liribot that uses node to respond to user input and uses AJAX calls to get info",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GiorgioGeorge/liribot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GiorgioGeorge/liribot/issues"
+  },
+  "homepage": "https://github.com/GiorgioGeorge/liribot#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.1.0",
+    "node-spotify-api": "^1.1.1"
+  }
+}
