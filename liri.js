@@ -44,7 +44,7 @@ function userCommand(userInput, userQuery) {
             doThis(userQuery);
             break;
         default:
-            console.log("I don't understand");
+            console.log("No Comprendo");
             break;
     }
 }
@@ -52,29 +52,29 @@ function userCommand(userInput, userQuery) {
 userCommand(userInput, userQuery);
 
 function concertThis() {
-    console.log(`\n - - - - -\n\nSEARCHING FOR...${userQuery}'s next show...`);
+    console.log("\n - - - - -\n" +
+        "\nSearching..." +
+        userQuery + "'s next show");
     // Uses request for API Search
     request("https://rest.bandsintown.com/artists/" + userQuery + "/events?app_id=" + bandsintown, function (error, response, body) {
-    
+
         if (!error && response.statusCode === 200) {
-           
-            var userBand = JSON.parse(body);
-            
+
+            let userBand = JSON.parse(body);
+
             if (userBand.length > 0) {
                 for (i = 0; i < 1; i++) {
 
-            
+
                     console.log("\n------- " +
-                     "\nArtist: " + 
-                     userBand[i].lineup[0] +
-                      "\nVenue: " + userBand[i].venue.name + 
-                      "\nVenue Location: " +
-                      userBand[i].venue.latitude,userBand[i].venue.longitude +
-                      "\nVenue City: "
-                      + userBand[i].venue.city, userBand[i].venue.country)
- 
-                    var concertDate = moment(userBand[i].datetime).format("MM/DD/YYYY hh:00 A");
-                    console.log("Date and Time: "  + concertDate + " \n\n- - - - -");
+                        "\nArtist: " +
+                        userBand[i].lineup[0] +
+                        "\nVenue: " + userBand[i].venue.name +
+                        "\nVenue City: " +
+                        userBand[i].venue.city, userBand[i].venue.country)
+
+                    let concertDate = moment(userBand[i].datetime).format("MM/DD/YYYY hh:00 A");
+                    console.log("Date and Time: " + concertDate + " \n\n- - - - -");
                 };
             } else {
                 console.log('Band or concert not found!');
@@ -84,7 +84,10 @@ function concertThis() {
 };
 
 function spotifyThisSong() {
-    console.log("\n - - - - -\n\nSEARCHING FOR..." + userQuery);
+    console.log(
+        "\n - - - - -" +
+        "\n\nSearching.." +
+        userQuery);
 
     // if user query isnt found pass Runaway
     if (!userQuery) {
@@ -98,27 +101,30 @@ function spotifyThisSong() {
         limit: 1
     }, function (error, data) {
         if (error) {
-            return console.log('Error occurred: ' + error);
+            return console.log('Error: ' + error);
         }
         // data placed in array
         let spotifyArr = data.tracks.items;
 
         for (i = 0; i < spotifyArr.length; i++) {
-            console.log("\n------ " + 
-            "\n\nArtist: " + data.tracks.items[i].album.artists[0].name + 
-            "\nSong: " +
-            data.tracks.items[i].name+
-            "\nAlbum: " + 
-            data.tracks.items[i].album.name +
-            "\nSpotify link: "+
-            data.tracks.items[i].external_urls.spotify +
-            "\n\n - - - - -")
+            console.log("\n------ " +
+                "\n\nArtist: " + data.tracks.items[i].album.artists[0].name +
+                "\nSong: " +
+                data.tracks.items[i].name +
+                "\nAlbum: " +
+                data.tracks.items[i].album.name +
+                "\nSpotify link: " +
+                data.tracks.items[i].external_urls.spotify +
+                "\n\n - - - - -")
         };
     });
 }
 
 function movieThis() {
-    console.log(`\n - - - - -\n\nSEARCHING FOR..."${userQuery}"`);
+    console.log(
+        "\n - - - - -" +
+        "\n\nSearching..." +
+        userQuery);
     if (!userQuery) {
         userQuery = "the Master";
     };
@@ -126,26 +132,25 @@ function movieThis() {
     request("http://www.omdbapi.com/?t=" + userQuery + "&apikey=7222c255", function (error, response, body) {
         let userMovie = JSON.parse(body);
 
-        let ratingsArr = userMovie.Ratings;
-        if (ratingsArr.length > 2) {}
+
 
         if (!error && response.statusCode === 200) {
             console.log(
                 "\n-----" +
                 "n\nTitle: " +
-                userMovie.Title + 
-                "\nCast: " + 
+                userMovie.Title +
+                "\nCast: " +
                 userMovie.Actors +
-                "\nReleased: " + 
-                userMovie.Year + 
+                "\nReleased: " +
+                userMovie.Year +
                 "\nIMDb Rating: " +
                 userMovie.imdbRating +
                 "\nRotten Tomatoes Rating: " +
-                userMovie.Ratings[1].Value+
+                userMovie.Ratings[1].Value +
                 "\nCountry: " +
                 userMovie.Country +
                 "\nLanguage: " +
-                userMovie.Language+ 
+                userMovie.Language +
                 "\nPlot: " +
                 userMovie.Plot +
                 "\n\n- - - - -")
@@ -161,7 +166,7 @@ function doThis() {
         if (error) {
             return console.log(error);
         }
-        
+
         let dataArr = data.split(",");
 
         // pass random.txt objects as parameters
